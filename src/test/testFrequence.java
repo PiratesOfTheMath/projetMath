@@ -2,15 +2,16 @@ package test;
 
 import static org.junit.Assert.*;
 
-import math.SerieDeFourier;
-import math.Spectre;
 
 import org.junit.Test;
+
+import fourier.SerieDeFourier;
+import fourier.Spectre;
 
 public class testFrequence {
 
 	Spectre spectre = new Spectre();
-	SerieDeFourier sf = new SerieDeFourier();
+	SerieDeFourier sf = new SerieDeFourier(spectre);
 	
 	@Test
 	public void testAmplitudePourUneFrequence(){
@@ -33,6 +34,7 @@ public class testFrequence {
 		assertEquals(spectre.getlength(), 8);
 	}
 	
+	@Test
 	public void testSerieDeFourrier(){
 		
 	}

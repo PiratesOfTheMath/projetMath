@@ -1,4 +1,4 @@
-package math;
+package fourier;
 
 public class Spectre {
 
