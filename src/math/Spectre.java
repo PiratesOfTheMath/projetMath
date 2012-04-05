@@ -17,4 +17,14 @@ public class Spectre {
 		return amplitude[i];
 	}
 
+	public void initialisationFrequence() {
+		for(int i = 0; i < amplitude.length; i++)
+			amplitude[i] = 0;
+		
+	}
+
+	public int getlength() {
+		return amplitude.length;
+	}
+
 }
