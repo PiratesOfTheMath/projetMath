@@ -213,4 +213,148 @@ public class Affichage {
         fenetre.setContentPane(container);
         fenetre.setVisible(true);
     }
+	
+	public String contenuChamp1A() { 
+        return champ1A.getText(); 
+    } 
+
+    public String contenuChamp1B() { 
+        return champ1B.getText(); 
+    } 
+    
+    public String contenuChamp1C() { 
+        return champ1C.getText(); 
+    } 
+
+    public String contenuChamp1D() { 
+        return champ1D.getText(); 
+    } 
+    
+    public String contenuChamp1E() { 
+        return champ1E.getText(); 
+    } 
+
+    public String contenuChamp1F() { 
+        return champ1F.getText(); 
+    } 
+    
+    public String contenuChamp1G() { 
+        return champ1G.getText(); 
+    } 
+
+    public String contenuChamp1H() { 
+        return champ1H.getText(); 
+    } 
+    
+    public String contenuChamp1I() { 
+        return champ1I.getText(); 
+    } 
+
+    public String contenuChamp2A() { 
+        return champ2A.getText(); 
+    } 
+    
+    public String contenuChamp2B() { 
+        return champ2B.getText(); 
+    } 
+    
+    public String contenuChamp2C() { 
+        return champ2C.getText(); 
+    } 
+
+    public String contenuChamp2D() { 
+        return champ2D.getText(); 
+    } 
+    
+    public String contenuChamp2E() { 
+        return champ2E.getText(); 
+    } 
+
+    public String contenuChamp2F() { 
+        return champ2F.getText(); 
+    } 
+    
+    public String contenuChamp2G() { 
+        return champ2G.getText(); 
+    } 
+
+    public String contenuChamp2H() { 
+        return champ2H.getText(); 
+    } 
+    
+    public String contenuChamp2I() { 
+        return champ2I.getText(); 
+    }
+    
+    public String contenuChamp3A() { 
+        return champ3A.getText(); 
+    } 
+    
+    public String contenuChamp3B() { 
+        return champ3B.getText(); 
+    } 
+    
+    public String contenuChamp3C() { 
+        return champ3C.getText(); 
+    } 
+
+    public String contenuChamp3D() { 
+        return champ3D.getText(); 
+    } 
+    
+    public String contenuChamp3E() { 
+        return champ3E.getText(); 
+    } 
+
+    public String contenuChamp3F() { 
+        return champ3F.getText(); 
+    } 
+    
+    public String contenuChamp3G() { 
+        return champ3G.getText(); 
+    } 
+
+    public String contenuChamp3H() { 
+        return champ3H.getText(); 
+    } 
+    
+    public String contenuChamp3I() { 
+        return champ3I.getText(); 
+    }
+    
+    public String contenuChamp4A() { 
+        return champ4A.getText(); 
+    } 
+    
+    public String contenuChamp4B() { 
+        return champ4B.getText(); 
+    } 
+    
+    public String contenuChamp4C() { 
+        return champ4C.getText(); 
+    } 
+
+    public String contenuChamp4D() { 
+        return champ4D.getText(); 
+    } 
+    
+    public String contenuChamp4E() { 
+        return champ4E.getText(); 
+    } 
+
+    public String contenuChamp4F() { 
+        return champ4F.getText(); 
+    } 
+    
+    public String contenuChamp4G() { 
+        return champ4G.getText(); 
+    } 
+
+    public String contenuChamp4H() { 
+        return champ4H.getText(); 
+    } 
+    
+    public String contenuChamp4I() { 
+        return champ4I.getText(); 
+    }
 }
