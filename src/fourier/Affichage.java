@@ -80,7 +80,7 @@ public class Affichage extends Frame implements ActionListener{
     private JTextField champ4I = new JTextField("0");
 	
     public void actionPerformed(ActionEvent e) { 
-        //APPELER FONCTION QUI FAIT LE SON !!!
+        //APPELER FONCTION QUI FAIT LE SON !!
     	
     }
     
