@@ -8,10 +8,26 @@ public class Affichage {
 
 	
 	private JFrame fenetre = new JFrame("Projet Math");
+	
+	private JButton bouton = new JButton("Travail"); 
+	
 	private JPanel container = new JPanel(new BorderLayout());
 	private JPanel container2 = new JPanel(new BorderLayout());
 	private JPanel container3 = new JPanel(new BorderLayout());
 	private JPanel container4 = new JPanel(new BorderLayout());
+	private JPanel container5 = new JPanel(new BorderLayout());
+	
+	private JLabel collone1 = new JLabel("             ");
+	private JLabel collone2 = new JLabel("32");
+	private JLabel collone3 = new JLabel("64");
+	private JLabel collone4 = new JLabel("128");
+	private JLabel collone5 = new JLabel("256");
+	private JLabel collone6 = new JLabel("512");
+	private JLabel collone7 = new JLabel("1024");
+	private JLabel collone8 = new JLabel("2048");
+	private JLabel collone9 = new JLabel("4096");
+	private JLabel collone10 = new JLabel("8192");
+	
 	
 	private JLabel ligne1 = new JLabel("Ligne 1");
 	
@@ -69,12 +85,21 @@ public class Affichage {
         fenetre.setLocationRelativeTo(null);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        
-        
+		JPanel top = new JPanel();
         JPanel top1 = new JPanel();
         JPanel top2 = new JPanel();
         JPanel top3 = new JPanel();
         JPanel top4 = new JPanel();
+        JPanel east = new JPanel();
+        
+        collone2.setPreferredSize(new Dimension(50, 30));
+        collone3.setPreferredSize(new Dimension(50, 30));
+        collone4.setPreferredSize(new Dimension(50, 30));
+        collone5.setPreferredSize(new Dimension(50, 30));
+        collone6.setPreferredSize(new Dimension(50, 30));
+        collone7.setPreferredSize(new Dimension(50, 30));
+        collone8.setPreferredSize(new Dimension(50, 30));
+        collone9.setPreferredSize(new Dimension(50, 30));
         
         champ1A.setPreferredSize(new Dimension(50, 30));
         champ1B.setPreferredSize(new Dimension(50, 30));
@@ -116,6 +141,17 @@ public class Affichage {
         champ4H.setPreferredSize(new Dimension(50, 30));
         champ4I.setPreferredSize(new Dimension(50, 30));
         
+        top.add(collone1);
+        top.add(collone2);
+        top.add(collone3);
+        top.add(collone4);
+        top.add(collone5);
+        top.add(collone6);
+        top.add(collone7);
+        top.add(collone8);
+        top.add(collone9);
+        top.add(collone10);
+        
         top1.add(ligne1);
         top1.add(champ1A);
         top1.add(champ1B);
@@ -126,6 +162,8 @@ public class Affichage {
         top1.add(champ1G);
         top1.add(champ1H);
         top1.add(champ1I);
+        
+        east.add(bouton);
         
         top2.add(ligne2);
         top2.add(champ2A);
@@ -160,16 +198,19 @@ public class Affichage {
         top4.add(champ4H);
         top4.add(champ4I);
         
-        container4.add(top4, BorderLayout.NORTH);
+        
+        container5.add(top4, BorderLayout.NORTH);
+        container4.add(container5);
+        container4.add(top3, BorderLayout.NORTH);
         container3.add(container4);
-        container3.add(top3, BorderLayout.NORTH);
+        container3.add(top2, BorderLayout.NORTH);
         container2.add(container3);
-        container2.add(top2, BorderLayout.NORTH);
+        container2.add(top1, BorderLayout.NORTH);
         container.add(container2);
-        container.add(top1, BorderLayout.NORTH);
+        container.add(top, BorderLayout.NORTH);
+        container5.add(east, BorderLayout.EAST);
         
         fenetre.setContentPane(container);
-        //fenetre.setContentPane(top3);
         fenetre.setVisible(true);
     }
 }
