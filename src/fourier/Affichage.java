@@ -1,10 +1,12 @@
 package fourier;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class Affichage {
+public class Affichage extends Frame implements ActionListener{
 
 	
 	private JFrame fenetre = new JFrame("Projet Math");
@@ -77,9 +79,15 @@ public class Affichage {
     private JTextField champ4H = new JTextField("0"); 
     private JTextField champ4I = new JTextField("0");
 	
-	
+    public void actionPerformed(ActionEvent e) { 
+        //APPELER FONCTION QUI FAIT LE SON !!!
+    	
+    }
+    
+    
 	public Affichage() { 
 		
+		bouton.addActionListener(this);
 		
         fenetre.setSize(1024,500);
         fenetre.setLocationRelativeTo(null);
