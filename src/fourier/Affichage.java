@@ -3,7 +3,15 @@ package fourier;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Date;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.*;
 
 public class Affichage extends Frame implements ActionListener{
@@ -78,13 +86,77 @@ public class Affichage extends Frame implements ActionListener{
     private JTextField champ4G = new JTextField("0"); 
     private JTextField champ4H = new JTextField("0"); 
     private JTextField champ4I = new JTextField("0");
+    
+    public byte audioData[] = new byte[16000 * 4];
+    public SerieDeFourier s;
+    
+    public float sampleRate = 16000.0F;
+    //Allowable 8000,11025,16000,22050,44100
+    public int sampleSizeInBits = 16;
+    //Allowable 8,16
+    public int channels = 1;
+    //Allowable 1,2
+    public boolean signed = true;
+    //Allowable true,false
+    public boolean bigEndian = true;
+    //Allowable true,false
 	
+    public AudioFormat audioFormat;
+    public AudioInputStream audioInputStream;
+    public SourceDataLine sourceDataLine;
+    
     public void actionPerformed(ActionEvent e) { 
-        //APPELER FONCTION QUI FAIT LE SON !!
+    	Spectre spectre = this.s.getSpectre();
     	
+    	spectre.setFrequence(0, Integer.parseInt(this.contenuChamp1A()));
+    	spectre.setFrequence(1, Integer.parseInt(this.contenuChamp1B()));
+    	spectre.setFrequence(2, Integer.parseInt(this.contenuChamp1C()));
+    	spectre.setFrequence(3, Integer.parseInt(this.contenuChamp1D()));
+    	spectre.setFrequence(4, Integer.parseInt(this.contenuChamp1E()));
+    	spectre.setFrequence(5, Integer.parseInt(this.contenuChamp1F()));
+    	spectre.setFrequence(6, Integer.parseInt(this.contenuChamp1G()));
+    	spectre.setFrequence(7, Integer.parseInt(this.contenuChamp1H()));
+    	
+        new SynGen().getSyntheticData(audioData, this.s);
+        
+        playData();
     }
     
     
+	private void playData() {
+		try{
+			InputStream byteArrayInputStream = new ByteArrayInputStream(audioData);
+			audioFormat = new AudioFormat(
+                    sampleRate,
+                    sampleSizeInBits,
+                    channels,
+                    signed,
+                    bigEndian);
+			
+			audioInputStream = new AudioInputStream(
+                    byteArrayInputStream,
+                    audioFormat,
+                    audioData.length/audioFormat.
+                                 getFrameSize());
+			
+			DataLine.Info dataLineInfo =
+                    new DataLine.Info(
+                      SourceDataLine.class,
+                              audioFormat);
+
+			//Geta SourceDataLine object
+			sourceDataLine = (SourceDataLine)
+			                       AudioSystem.getLine(
+			                             dataLineInfo);
+			
+			new ListenThread().start();
+		}catch (Exception e) {
+		      e.printStackTrace();
+		      System.exit(0);
+	    }		
+	}
+
+
 	public Affichage() { 
 		
 		bouton.addActionListener(this);
@@ -365,4 +437,63 @@ public class Affichage extends Frame implements ActionListener{
     public String contenuChamp4I() { 
         return champ4I.getText(); 
     }
+    
+    public void setSerieDeFourier(SerieDeFourier _s){
+    	this.s = _s;
+    }
+    
+    class ListenThread extends Thread{
+  	  //This is a working buffer used to transfer
+  	  // the data between the AudioInputStream and
+  	  // the SourceDataLine.  The size is rather
+  	  // arbitrary.
+  	
+  	  byte playBuffer[] = new byte[16384];
+
+  	  public void run(){
+  	    try{
+
+  	      //Open and start the SourceDataLine
+  	      sourceDataLine.open(audioFormat);
+  	      sourceDataLine.start();
+
+  	      int cnt;
+  	      //Get beginning of elapsed time for
+  	      // playback
+  	      long startTime = new Date().getTime();
+
+  	      //Transfer the audio data to the speakers
+  	      while((cnt = audioInputStream.read(
+  	                              playBuffer, 0,
+  	                              playBuffer.length))
+  	                                          != -1){
+  	        //Keep looping until the input read
+  	        // method returns -1 for empty stream.
+  	        if(cnt > 0){
+  	          //Write data to the internal buffer of
+  	          // the data line where it will be
+  	          // delivered to the speakers in real
+  	          // time
+  	          sourceDataLine.write(
+  	                             playBuffer, 0, cnt);
+  	        }//end if
+  	      }//end while
+
+  	      //Block and wait for internal buffer of the
+  	      // SourceDataLine to become empty.
+  	      sourceDataLine.drain();
+
+  	      //Finish with the SourceDataLine
+  	      sourceDataLine.stop();
+  	      sourceDataLine.close();
+
+  	      //Re-enable buttons for another operation
+  	    }catch (Exception e) {
+  	      e.printStackTrace();
+  	      System.exit(0);
+  	    }//end catch
+
+  	  }//end run
+  	}//end inner class ListenThread
+  	//=============================================//
 }

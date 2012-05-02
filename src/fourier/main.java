@@ -9,6 +9,7 @@ public class main {
     	Affichage affichage = new Affichage(); 
         Spectre spectre = new Spectre();
     	SerieDeFourier Fourier = new SerieDeFourier(spectre);
+    	affichage.setSerieDeFourier(Fourier);
     	
     	
     

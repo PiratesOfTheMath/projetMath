@@ -17,4 +17,7 @@ public class SerieDeFourier {
 		return sf;
 	}
 	
+	public Spectre getSpectre(){
+		return this.spectre;
+	}
 }
