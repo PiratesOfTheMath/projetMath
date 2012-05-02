@@ -6,12 +6,6 @@ public class main {
     
     public static void main(String[] args) { 
     	
-    	Affichage affichage = new Affichage(); 
-        Spectre spectre = new Spectre();
-    	SerieDeFourier Fourier = new SerieDeFourier(spectre);
-    	affichage.setSerieDeFourier(Fourier);
-    	
-    	
-    
+    	new Affichage(); 
     } 
 }

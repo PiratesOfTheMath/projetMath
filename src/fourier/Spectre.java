@@ -5,14 +5,15 @@ public class Spectre {
 	private int[] amplitude;
 	
 	public Spectre(){
-		amplitude = new int[8];
+		amplitude = new int[9];
+		initialisationFrequence();
 	}
 	
 	public void setFrequence(int i, int j) {
 		amplitude[i]=j;
 	}
 
-	public int getFrequence(int i) {
+	public int getAmplitude(int i) {
 		
 		return amplitude[i];
 	}

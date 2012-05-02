@@ -19,7 +19,8 @@ public class Affichage extends Frame implements ActionListener{
 	
 	private JFrame fenetre = new JFrame("Projet Math");
 	
-	private JButton bouton = new JButton("Travail"); 
+	private JButton generer = new JButton("Créer et écouter");
+	private JButton remplir = new JButton("Remplir tout les champs");
 	
 	private JPanel container = new JPanel(new BorderLayout());
 	private JPanel container2 = new JPanel(new BorderLayout());
@@ -39,7 +40,7 @@ public class Affichage extends Frame implements ActionListener{
 	private JLabel collone10 = new JLabel("8192");
 	
 	
-	private JLabel ligne1 = new JLabel("Ligne 1");
+	private JLabel ligne1 = new JLabel("première note");
 	
 	private JTextField champ1A = new JTextField("0"); 
     private JTextField champ1B = new JTextField("0");
@@ -51,7 +52,7 @@ public class Affichage extends Frame implements ActionListener{
     private JTextField champ1H = new JTextField("0"); 
     private JTextField champ1I = new JTextField("0"); 
     
-    private JLabel ligne2 = new JLabel("Ligne 2");
+    private JLabel ligne2 = new JLabel("deuxième note");
     
     private JTextField champ2A = new JTextField("0"); 
     private JTextField champ2B = new JTextField("0");
@@ -63,7 +64,7 @@ public class Affichage extends Frame implements ActionListener{
     private JTextField champ2H = new JTextField("0"); 
     private JTextField champ2I = new JTextField("0"); 
     
-    private JLabel ligne3 = new JLabel("Ligne 3");
+    private JLabel ligne3 = new JLabel("troisième note");
     
     private JTextField champ3A = new JTextField("0"); 
     private JTextField champ3B = new JTextField("0");
@@ -75,7 +76,7 @@ public class Affichage extends Frame implements ActionListener{
     private JTextField champ3H = new JTextField("0"); 
     private JTextField champ3I = new JTextField("0");
     
-    private JLabel ligne4 = new JLabel("Ligne 4");
+    private JLabel ligne4 = new JLabel("quatrième note");
     
     private JTextField champ4A = new JTextField("0"); 
     private JTextField champ4B = new JTextField("0");
@@ -88,7 +89,6 @@ public class Affichage extends Frame implements ActionListener{
     private JTextField champ4I = new JTextField("0");
     
     public byte audioData[] = new byte[16000 * 4];
-    public SerieDeFourier s;
     
     public float sampleRate = 16000.0F;
     //Allowable 8000,11025,16000,22050,44100
@@ -105,24 +105,133 @@ public class Affichage extends Frame implements ActionListener{
     public AudioInputStream audioInputStream;
     public SourceDataLine sourceDataLine;
     
-    public void actionPerformed(ActionEvent e) { 
-    	Spectre spectre = this.s.getSpectre();
-    	
-    	spectre.setFrequence(0, Integer.parseInt(this.contenuChamp1A()));
-    	spectre.setFrequence(1, Integer.parseInt(this.contenuChamp1B()));
-    	spectre.setFrequence(2, Integer.parseInt(this.contenuChamp1C()));
-    	spectre.setFrequence(3, Integer.parseInt(this.contenuChamp1D()));
-    	spectre.setFrequence(4, Integer.parseInt(this.contenuChamp1E()));
-    	spectre.setFrequence(5, Integer.parseInt(this.contenuChamp1F()));
-    	spectre.setFrequence(6, Integer.parseInt(this.contenuChamp1G()));
-    	spectre.setFrequence(7, Integer.parseInt(this.contenuChamp1H()));
-    	
-        new SynGen().getSyntheticData(audioData, this.s);
-        
-        playData();
+    private SerieDeFourier serie[];
+    
+    public void addSerieDeFourier(SerieDeFourier s){
+    	 int taille = serie.length;
+    	 if(taille == 0){
+    		 serie = new SerieDeFourier[1];
+    	 }else{
+    		 SerieDeFourier[] newSerie = new SerieDeFourier[taille+1];
+    		 for(int i = 0; i < taille; i++){
+    			 newSerie[i] = serie[i];
+    		 }
+    		 
+    		 newSerie[taille] = s;
+    		 
+    		 serie = newSerie;
+    	 }
     }
     
+    public void actionPerformed(ActionEvent e) { 
+    	Object source = e.getSource();
+    	
+    	if(source == generer){
+    		for(int i = 0; i < serie.length; i++){
+    			ajusterSerie(i);
+    		}
+	    	
+	        new SynGen().getSyntheticData(audioData, this.serie);
+	        
+	        playData();
+    	}
+    	
+    	if(source == remplir){
+    		champ1A.setText("2");
+    		champ1B.setText("2");
+    		champ1C.setText("2");
+    		champ1D.setText("2");
+    		champ1E.setText("2");
+    		champ1F.setText("2");
+    		champ1G.setText("2");
+    		champ1H.setText("2");
+    		champ1I.setText("2");
+    		
+    		champ2A.setText("1");
+    		champ2B.setText("1");
+    		champ2C.setText("1");
+    		champ2D.setText("1");
+    		champ2E.setText("1");
+    		champ2F.setText("1");
+    		champ2G.setText("1");
+    		champ2H.setText("1");
+    		champ2I.setText("1");
+    		
+    		champ3A.setText("2");
+    		champ3B.setText("2");
+    		champ3C.setText("2");
+    		champ3D.setText("2");
+    		champ3E.setText("2");
+    		champ3F.setText("2");
+    		champ3G.setText("2");
+    		champ3H.setText("2");
+    		champ3I.setText("2");
+    		
+    		champ4A.setText("1");
+    		champ4B.setText("1");
+    		champ4C.setText("1");
+    		champ4D.setText("1");
+    		champ4E.setText("1");
+    		champ4F.setText("1");
+    		champ4G.setText("1");
+    		champ4H.setText("1");
+    		champ4I.setText("1");
+    		
+    	}
+    }
     
+	private void ajusterSerie(int i) {
+		if(i == 0){
+			Spectre spectre = this.serie[i].getSpectre();
+	    	
+	    	spectre.setFrequence(0, Integer.parseInt(this.contenuChamp1A()));
+	    	spectre.setFrequence(1, Integer.parseInt(this.contenuChamp1B()));
+	    	spectre.setFrequence(2, Integer.parseInt(this.contenuChamp1C()));
+	    	spectre.setFrequence(3, Integer.parseInt(this.contenuChamp1D()));
+	    	spectre.setFrequence(4, Integer.parseInt(this.contenuChamp1E()));
+	    	spectre.setFrequence(5, Integer.parseInt(this.contenuChamp1F()));
+	    	spectre.setFrequence(6, Integer.parseInt(this.contenuChamp1G()));
+	    	spectre.setFrequence(7, Integer.parseInt(this.contenuChamp1H()));
+		}
+		if(i == 1){
+			Spectre spectre = this.serie[i].getSpectre();
+	    	
+	    	spectre.setFrequence(0, Integer.parseInt(this.contenuChamp2A()));
+	    	spectre.setFrequence(1, Integer.parseInt(this.contenuChamp2B()));
+	    	spectre.setFrequence(2, Integer.parseInt(this.contenuChamp2C()));
+	    	spectre.setFrequence(3, Integer.parseInt(this.contenuChamp2D()));
+	    	spectre.setFrequence(4, Integer.parseInt(this.contenuChamp2E()));
+	    	spectre.setFrequence(5, Integer.parseInt(this.contenuChamp2F()));
+	    	spectre.setFrequence(6, Integer.parseInt(this.contenuChamp2G()));
+	    	spectre.setFrequence(7, Integer.parseInt(this.contenuChamp2H()));
+		}
+		if(i == 2){
+			Spectre spectre = this.serie[i].getSpectre();
+	    	
+	    	spectre.setFrequence(0, Integer.parseInt(this.contenuChamp3A()));
+	    	spectre.setFrequence(1, Integer.parseInt(this.contenuChamp3B()));
+	    	spectre.setFrequence(2, Integer.parseInt(this.contenuChamp3C()));
+	    	spectre.setFrequence(3, Integer.parseInt(this.contenuChamp3D()));
+	    	spectre.setFrequence(4, Integer.parseInt(this.contenuChamp3E()));
+	    	spectre.setFrequence(5, Integer.parseInt(this.contenuChamp3F()));
+	    	spectre.setFrequence(6, Integer.parseInt(this.contenuChamp3G()));
+	    	spectre.setFrequence(7, Integer.parseInt(this.contenuChamp3H()));
+		}
+		if(i == 3){
+			Spectre spectre = this.serie[i].getSpectre();
+	    	
+	    	spectre.setFrequence(0, Integer.parseInt(this.contenuChamp4A()));
+	    	spectre.setFrequence(1, Integer.parseInt(this.contenuChamp4B()));
+	    	spectre.setFrequence(2, Integer.parseInt(this.contenuChamp4C()));
+	    	spectre.setFrequence(3, Integer.parseInt(this.contenuChamp4D()));
+	    	spectre.setFrequence(4, Integer.parseInt(this.contenuChamp4E()));
+	    	spectre.setFrequence(5, Integer.parseInt(this.contenuChamp4F()));
+	    	spectre.setFrequence(6, Integer.parseInt(this.contenuChamp4G()));
+	    	spectre.setFrequence(7, Integer.parseInt(this.contenuChamp4H()));
+		}
+		
+	}
+
 	private void playData() {
 		try{
 			InputStream byteArrayInputStream = new ByteArrayInputStream(audioData);
@@ -140,14 +249,10 @@ public class Affichage extends Frame implements ActionListener{
                                  getFrameSize());
 			
 			DataLine.Info dataLineInfo =
-                    new DataLine.Info(
-                      SourceDataLine.class,
-                              audioFormat);
+                    new DataLine.Info(SourceDataLine.class, audioFormat);
 
 			//Geta SourceDataLine object
-			sourceDataLine = (SourceDataLine)
-			                       AudioSystem.getLine(
-			                             dataLineInfo);
+			sourceDataLine = (SourceDataLine)AudioSystem.getLine(dataLineInfo);
 			
 			new ListenThread().start();
 		}catch (Exception e) {
@@ -159,7 +264,13 @@ public class Affichage extends Frame implements ActionListener{
 
 	public Affichage() { 
 		
-		bouton.addActionListener(this);
+		serie = new SerieDeFourier[4];
+		for(int i = 0; i < serie.length; i++){
+			serie[i] = new SerieDeFourier();
+		}
+		
+		generer.addActionListener(this);
+		remplir.addActionListener(this);
 		
         fenetre.setSize(1024,500);
         fenetre.setLocationRelativeTo(null);
@@ -243,7 +354,8 @@ public class Affichage extends Frame implements ActionListener{
         top1.add(champ1H);
         top1.add(champ1I);
         
-        east.add(bouton);
+        east.add(remplir);
+        east.add(generer);
         
         top2.add(ligne2);
         top2.add(champ2A);
@@ -436,10 +548,6 @@ public class Affichage extends Frame implements ActionListener{
     
     public String contenuChamp4I() { 
         return champ4I.getText(); 
-    }
-    
-    public void setSerieDeFourier(SerieDeFourier _s){
-    	this.s = _s;
     }
     
     class ListenThread extends Thread{
