@@ -284,7 +284,7 @@ public class Affichage extends Frame implements ActionListener{
 		remplir.addActionListener(this);
 		interpolation.addActionListener(this);
 		
-        fenetre.setSize(1024,500);
+        fenetre.setSize(512,300);
         fenetre.setLocationRelativeTo(null);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         

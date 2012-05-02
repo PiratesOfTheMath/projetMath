@@ -31,6 +31,6 @@ public class testFrequence {
 	public void testTailleSpectre(){
 		spectre.initialisationFrequence();
 		
-		assertEquals(spectre.getlength(), 8);
+		assertEquals(spectre.getlength(), 9);
 	}
 }
