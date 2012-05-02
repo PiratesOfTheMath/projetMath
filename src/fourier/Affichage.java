@@ -21,6 +21,7 @@ public class Affichage extends Frame implements ActionListener{
 	
 	private JButton generer = new JButton("Créer et écouter");
 	private JButton remplir = new JButton("Remplir tout les champs");
+	private JButton interpolation = new JButton("Interpolation");
 	
 	private JPanel container = new JPanel(new BorderLayout());
 	private JPanel container2 = new JPanel(new BorderLayout());
@@ -178,6 +179,16 @@ public class Affichage extends Frame implements ActionListener{
     		champ4I.setText("1");
     		
     	}
+    	
+    	if(source == interpolation){
+    		for(int i = 0; i < serie.length; i++){
+    			ajusterSerie(i);
+    		}
+    		
+    		new SynGen().getSyntheticDataInterpolation(audioData, this.serie);
+    		
+    		playData();
+    	}
     }
     
 	private void ajusterSerie(int i) {
@@ -271,6 +282,7 @@ public class Affichage extends Frame implements ActionListener{
 		
 		generer.addActionListener(this);
 		remplir.addActionListener(this);
+		interpolation.addActionListener(this);
 		
         fenetre.setSize(1024,500);
         fenetre.setLocationRelativeTo(null);
@@ -356,6 +368,7 @@ public class Affichage extends Frame implements ActionListener{
         
         east.add(remplir);
         east.add(generer);
+        east.add(interpolation);
         
         top2.add(ligne2);
         top2.add(champ2A);
