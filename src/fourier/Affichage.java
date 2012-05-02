@@ -28,7 +28,7 @@ public class Affichage extends Frame implements ActionListener{
 	private JPanel container4 = new JPanel(new BorderLayout());
 	private JPanel container5 = new JPanel(new BorderLayout());
 	
-	private JLabel collone1 = new JLabel("             ");
+	private JLabel collone1 = new JLabel("                             ");
 	private JLabel collone2 = new JLabel("32");
 	private JLabel collone3 = new JLabel("64");
 	private JLabel collone4 = new JLabel("128");
