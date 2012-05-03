@@ -16,6 +16,8 @@ public class SerieDeFourier {
 		
 		sf = sf / this.spectre.getlength();
 		
+		System.out.println("sf " + sf);
+		
 		return sf;
 	}
 	

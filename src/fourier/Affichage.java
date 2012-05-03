@@ -203,6 +203,7 @@ public class Affichage extends Frame implements ActionListener{
 	    	spectre.setFrequence(5, Integer.parseInt(this.contenuChamp1F()));
 	    	spectre.setFrequence(6, Integer.parseInt(this.contenuChamp1G()));
 	    	spectre.setFrequence(7, Integer.parseInt(this.contenuChamp1H()));
+	    	spectre.setFrequence(8, Integer.parseInt(this.contenuChamp1I()));
 		}
 		if(i == 1){
 			Spectre spectre = this.serie[i].getSpectre();
@@ -215,6 +216,7 @@ public class Affichage extends Frame implements ActionListener{
 	    	spectre.setFrequence(5, Integer.parseInt(this.contenuChamp2F()));
 	    	spectre.setFrequence(6, Integer.parseInt(this.contenuChamp2G()));
 	    	spectre.setFrequence(7, Integer.parseInt(this.contenuChamp2H()));
+	    	spectre.setFrequence(8, Integer.parseInt(this.contenuChamp2I()));
 		}
 		if(i == 2){
 			Spectre spectre = this.serie[i].getSpectre();
@@ -227,6 +229,7 @@ public class Affichage extends Frame implements ActionListener{
 	    	spectre.setFrequence(5, Integer.parseInt(this.contenuChamp3F()));
 	    	spectre.setFrequence(6, Integer.parseInt(this.contenuChamp3G()));
 	    	spectre.setFrequence(7, Integer.parseInt(this.contenuChamp3H()));
+	    	spectre.setFrequence(8, Integer.parseInt(this.contenuChamp3I()));
 		}
 		if(i == 3){
 			Spectre spectre = this.serie[i].getSpectre();
@@ -239,6 +242,7 @@ public class Affichage extends Frame implements ActionListener{
 	    	spectre.setFrequence(5, Integer.parseInt(this.contenuChamp4F()));
 	    	spectre.setFrequence(6, Integer.parseInt(this.contenuChamp4G()));
 	    	spectre.setFrequence(7, Integer.parseInt(this.contenuChamp4H()));
+	    	spectre.setFrequence(8, Integer.parseInt(this.contenuChamp4I()));
 		}
 		
 	}
@@ -284,7 +288,7 @@ public class Affichage extends Frame implements ActionListener{
 		remplir.addActionListener(this);
 		interpolation.addActionListener(this);
 		
-        fenetre.setSize(512,300);
+        fenetre.setSize(610,300);
         fenetre.setLocationRelativeTo(null);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         

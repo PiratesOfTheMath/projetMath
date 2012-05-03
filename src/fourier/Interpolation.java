@@ -10,21 +10,36 @@ public class Interpolation {
 	
 	private double[][] amplitude;
 	private SerieDeFourier[] serie;
+	int sampLength;
 	
-	public Interpolation(SerieDeFourier[] serie){
+	public Interpolation(SerieDeFourier[] serie, int sampLength){
 		this.serie = serie;
+		this.sampLength = sampLength;
 		
-		amplitude = new double[4][9];
+		int nbSpectre = serie.length;
+		int nbAmplitude = serie[0].getSpectre().getlength();
+		
+		amplitude = new double[nbSpectre][nbAmplitude];
+		String amp = "Tableau des amplitudes : \n";
 		
 		for(int j = 0; j < 4; j++){
 			for(int i = 0; i < 9; i++){
 				amplitude[j][i] = serie[j].getSpectre().getAmplitude(i);
+				amp += "--"+ j + "/" + i + "- " + amplitude[j][i] + " ";
 			}
+			amp += "\n";
 		}
+		
+		System.out.println(amp);
+		
+		
+		
+		fNewton = new double[nbSpectre][nbSpectre];
+		xi = abscisseFonctionF(nbSpectre);
 	}
 	
 	public double getAmplitude(double t, int i){
-		polynomeNewton(4, i);
+		polynomeNewton(serie.length, i);
 		
 		double ampl = getOrdonneePolyNe(t);
 		
@@ -36,10 +51,13 @@ public class Interpolation {
 		
 		Spectre spectre = serie[stade].getSpectre();
 		
-		for(int j = 0; j < spectre.getlength(); j++)
+		for(int j = 0; j < spectre.getlength(); j++){
 			sf += getAmplitude(t, j) * Math.cos(2*Math.PI * Math.pow(2, j+5) * t);
+			//System.out.println("Amplitude " + getAmplitude(t, j));
+		}
 		
-		sf = sf / spectre.getlength();		
+		sf = sf / spectre.getlength();
+		
 		return sf;
 	}
 	
@@ -64,10 +82,7 @@ public class Interpolation {
 	}
 	
 	//fonction qui créer le polynome d'interpolation avec les points équidistants
-	public void polynomeNewton(int nbPoint, int i){
-		fNewton = new double[nbPoint][nbPoint];
-		xi = abscisseFonctionF(nbPoint);
-		
+	public void polynomeNewton(int nbPoint, int i){		
 		initialisationOrdonnee(nbPoint, xi, i);
 		
 		constructionCoordonnee(nbPoint, xi);
@@ -94,13 +109,14 @@ public class Interpolation {
 	//retourne les abscisses equidistantes en fonction du nombre de point
 	public double[] abscisseFonctionF(int nbPoint) {
 		double abscisse[] = new double[nbPoint];
-		double increment = 16000;
+		double increment = 1;
 		
 		abscisse[0] = 0;
 		
 		for(int i = 1; i < nbPoint; i++)
 		{
 			abscisse[i] = abscisse[i - 1] + increment;
+			System.out.println("abscisse : " + abscisse[i]);
 		}
 		
 		return abscisse;

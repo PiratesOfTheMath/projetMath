@@ -31,7 +31,7 @@ public class SynGen {
 	    
 	    for(int cnt = 0; cnt < sampLength; cnt++){
 	        double time = cnt/sampleRate;
-	        
+	        System.out.println("time " + time);
 	        double sinValue = serie[i].getValeur(time);
 	        
 	        shortBuffer.put((short)(8000*sinValue));
@@ -60,14 +60,15 @@ public class SynGen {
 	    int sampLength = byteLength / bytesPerSamp;
 	    int i = 0;
 	    
-	    Interpolation inter = new Interpolation(serie);
+	    Interpolation inter = new Interpolation(serie, sampLength);
 	    
 	    for(int cnt = 0; cnt < sampLength; cnt++){
 	        double time = cnt/sampleRate;
-	        
 	        double sinValue = inter.getValeur(time, i);
 	        
 	        shortBuffer.put((short)(8000*sinValue));
+	        
+	        //System.out.println("count : " + cnt);
 	        
 	        if(cnt >= (i+1)*(sampLength/(nbSerie)))
 	        	i++;
